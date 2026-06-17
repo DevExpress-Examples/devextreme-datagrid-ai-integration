@@ -40,7 +40,7 @@ $(() => {
 
   let chatInstance;
 
-  $('#gridContainer').dxDataGrid({
+  $('#grid-container').dxDataGrid({
     dataSource: sales,
     aiIntegration: columnAiIntegration,
     showBorders: true,
