@@ -1,4 +1,10 @@
-.main {
-  margin: 50px;
-  width: 90vw;
+.demo-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+#grid-container {
+    max-width: 1200px;
+    width: 100%;
 }

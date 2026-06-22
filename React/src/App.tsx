@@ -65,8 +65,9 @@ function App(): JSX.Element {
   }), []);
 
   return (
-    <div className="main">
+    <div className="demo-container">
       <DataGrid
+        id="grid-container"
         dataSource={sales}
         aiIntegration={service.columnAiIntegration}
         showBorders
