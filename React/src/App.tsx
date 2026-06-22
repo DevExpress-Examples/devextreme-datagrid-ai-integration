@@ -27,6 +27,8 @@ const HELP_PROMPT = `💡 The DataGrid AI Assistant allows you to control the co
   • Configure data summaries
   • Pick a suggestion or enter a custom request to get started.`;
 
+const allowedPageSizes = [10, 25, 50, 100];
+
 function App(): JSX.Element {
   const service = useMemo(() => new AIService(AI_COLUMN_URL, AI_ASSISTANT_URL), []);
   const chatRef = useRef<any>(null);
@@ -78,7 +80,7 @@ function App(): JSX.Element {
         <Paging defaultPageSize={10} />
         <Pager
           visible
-          allowedPageSizes={[10, 25, 50, 100]}
+          allowedPageSizes={allowedPageSizes}
           showPageSizeSelector
         />
 

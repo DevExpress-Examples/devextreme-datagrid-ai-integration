@@ -5,10 +5,11 @@ import type {
 } from 'devextreme-react/common/ai-integration';
 
 export default class AIService {
-    columnAiIntegration: AIIntegration;
-    assistantAiIntegration: AIIntegration;
+  columnAiIntegration: AIIntegration;
 
-  constructor(columnUrl: string,  assistantUrl: string) {
+  assistantAiIntegration: AIIntegration;
+
+  constructor(columnUrl: string, assistantUrl: string) {
     this.columnAiIntegration = new AIIntegration({
       sendRequest: this.createSendRequest(columnUrl),
     });
