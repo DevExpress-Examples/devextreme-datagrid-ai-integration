@@ -1,8 +1,10 @@
+import type { Sale } from "./types";
+
 const SERVER_URL = 'http://localhost:5005/api/ai';
 export const AI_COLUMN_URL = `${SERVER_URL}/grid-column`;
 export const AI_ASSISTANT_URL = `${SERVER_URL}/assistant`;
 
-export const sales = [
+export const sales: Sale[] = [
   {
     Id: 1,
     Product: 'Eco Supreme',

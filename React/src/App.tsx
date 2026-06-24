@@ -10,6 +10,9 @@ import DataGrid, {
   Paging,
   SearchPanel,
 } from 'devextreme-react/data-grid';
+import type { ButtonGroupTypes } from 'devextreme-react/button-group';
+import type {ChatTypes} from 'devextreme-react/chat';
+import type dxChat from 'devextreme/ui/chat';
 import 'devextreme/dist/css/dx.fluent.blue.light.css';
 import './App.css';
 
@@ -29,13 +32,14 @@ const HELP_PROMPT = `💡 The DataGrid AI Assistant allows you to control the co
 
 const allowedPageSizes = [10, 25, 50, 100];
 
+const service = new AIService(AI_COLUMN_URL, AI_ASSISTANT_URL);
+
 function App(): JSX.Element {
-  const service = useMemo(() => new AIService(AI_COLUMN_URL, AI_ASSISTANT_URL), []);
-  const chatRef = useRef<any>(null);
+  const chatRef = useRef<dxChat | null>(null);
 
   const chatOptions = useMemo(() => ({
-    onInitialized: (e: { component: unknown }) => {
-      chatRef.current = e.component;
+    onInitialized: (e: ChatTypes.InitializedEvent) => {
+      chatRef.current = e.component || null;
     },
     user: { id: 'user' },
     suggestions: {
@@ -45,7 +49,7 @@ function App(): JSX.Element {
         { text: '↕️ Sort by Region', prompt: 'Sort by Region' },
         { text: '🧩 Group by Product', prompt: 'Group by Product', width: 170 },
       ],
-      onItemClick: (e: { itemData: { text: string; prompt: string } }) => {
+      onItemClick: (e: ButtonGroupTypes.ItemClickEvent) => {
         const { prompt, text } = e.itemData;
         const userId = text === '💡 Help' ? 'help' : 'user';
 
