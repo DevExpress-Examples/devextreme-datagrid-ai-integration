@@ -91,7 +91,7 @@ const chatOptions = {
       <DxGroupPanel :visible="true"/>
       <DxHeaderFilter :visible="true"/>
       <DxFilterRow :visible="true"/>
-      <DxPaging :default-page-size="10"/>
+      <DxPaging :page-size="10"/>
       <DxPager
         :visible="true"
         :allowed-page-sizes="allowedPageSizes"
