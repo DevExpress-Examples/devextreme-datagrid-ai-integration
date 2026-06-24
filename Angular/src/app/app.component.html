@@ -1,3 +1,58 @@
-<div class="default-style">
-  <dx-button [text]="buttonText" (onClick)="onClick($event)"></dx-button>
+<div class="demo-container">
+  <dx-data-grid
+    id="grid-container"
+    [dataSource]="sales"
+    [aiIntegration]="columnAiIntegration"
+    [showBorders]="true"
+    keyExpr="Id"
+    [filterSyncEnabled]="true"
+  >
+    <dxo-data-grid-search-panel
+      [visible]="true"
+      [width]="240"
+      placeholder="Search..."
+    ></dxo-data-grid-search-panel>
+    <dxo-data-grid-group-panel [visible]="true"></dxo-data-grid-group-panel>
+    <dxo-data-grid-header-filter [visible]="true"></dxo-data-grid-header-filter>
+    <dxo-data-grid-filter-row [visible]="true"></dxo-data-grid-filter-row>
+    <dxo-data-grid-paging [pageSize]="10"></dxo-data-grid-paging>
+    <dxo-data-grid-pager
+      [visible]="true"
+      [allowedPageSizes]="allowedPageSizes"
+      [showPageSizeSelector]="true"
+    ></dxo-data-grid-pager>
+
+    <dxo-data-grid-ai-assistant
+      [enabled]="true"
+      [aiIntegration]="assistantAiIntegration"
+      [chat]="chatOptions"
+    ></dxo-data-grid-ai-assistant>
+
+    <dxi-data-grid-column dataField="Product"></dxi-data-grid-column>
+    <dxi-data-grid-column
+      dataField="Amount"
+      caption="Sale Amount"
+      dataType="number"
+      format="currency"
+    ></dxi-data-grid-column>
+    <dxi-data-grid-column dataField="Region" dataType="string"></dxi-data-grid-column>
+    <dxi-data-grid-column dataField="Sector" dataType="string"></dxi-data-grid-column>
+    <dxi-data-grid-column dataField="SaleDate" dataType="date"></dxi-data-grid-column>
+    <dxi-data-grid-column dataField="Customer" dataType="string"></dxi-data-grid-column>
+    <dxi-data-grid-column
+      name="AI column"
+      caption="AI Column"
+      type="ai"
+      [width]="200"
+      [fixed]="true"
+      fixedPosition="right"
+      cssClass="ai__cell"
+    >
+      <dxo-data-grid-ai
+        prompt="Identify the country where product is manufactured. When looking up a country, consider Sector and Customers."
+        mode="auto"
+        noDataText="No data"
+      ></dxo-data-grid-ai>
+    </dxi-data-grid-column>
+  </dx-data-grid>
 </div>

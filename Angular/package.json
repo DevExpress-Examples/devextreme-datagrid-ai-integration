@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port 5050",
     "prebuild": "devextreme-license --out src/devextreme-license.ts --force",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
@@ -24,8 +24,8 @@
     "@angular/platform-browser": "^21.2.13",
     "@angular/platform-browser-dynamic": "^21.2.13",
     "@angular/router": "^21.2.13",
-    "devextreme": "26.1.2-beta",
-    "devextreme-angular": "26.1.2-beta",
+    "devextreme": "26.1.3",
+    "devextreme-angular": "26.1.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.1"
