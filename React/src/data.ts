@@ -1,4 +1,4 @@
-import type { Sale } from "./types";
+import type { Sale } from './types';
 
 const SERVER_URL = 'http://localhost:5005/api/ai';
 export const AI_COLUMN_URL = `${SERVER_URL}/grid-column`;

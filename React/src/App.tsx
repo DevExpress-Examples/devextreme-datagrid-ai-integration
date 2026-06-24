@@ -11,7 +11,7 @@ import DataGrid, {
   SearchPanel,
 } from 'devextreme-react/data-grid';
 import type { ButtonGroupTypes } from 'devextreme-react/button-group';
-import type {ChatTypes} from 'devextreme-react/chat';
+import type { ChatTypes } from 'devextreme-react/chat';
 import type dxChat from 'devextreme/ui/chat';
 import 'devextreme/dist/css/dx.fluent.blue.light.css';
 import './App.css';
