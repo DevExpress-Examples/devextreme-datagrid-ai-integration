@@ -6,7 +6,7 @@
 <!-- default badges end -->
 # DevExtreme DataGrid - AI Integration
 
-This example demonstrates how to enhance the [DevExtreme DataGrid](https://js.devexpress.com/Documentation/Guide/UI_Components/DataGrid/Overview/) with two AI-powered features: an [AI column](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/columns/#type) that fills cells with values generated from row context, and the [AI Assistant](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/aiAssistant/) chat that lets end users control the grid (sort, filter, search, group, page, etc.) through natural-language requests.
+This example demonstrates how to enhance the [DevExtreme DataGrid](https://js.devexpress.com/Documentation/Guide/UI_Components/DataGrid/Overview/) with two AI-powered features: an [AI column](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/columns/ai/) that fills cells with values generated from row context, and the [AI Assistant](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/aiAssistant/) chat that lets end users control the grid (sort, filter, search, group, page, etc.) through natural-language requests.
 
 ![Example image](images/image-template.png)
 
@@ -26,7 +26,7 @@ All framework projects share the same client-side pattern:
 
 1. A `sendRequest` factory wraps `fetch` and posts `{ prompt, data }` to the chosen endpoint. The request is aborted via `AbortController` if the user cancels, and oversized prompts (≥ 5000 characters) are rejected before any network call.
 
-2. Two separate [AIIntegration](https://js.devexpress.com/Documentation/ApiReference/Common/Utils/aiIntegration/) instances are created with `new DevExpress.aiIntegration.AIIntegration({ sendRequest })` - one bound to the column endpoint, one to the assistant endpoint. They are passed to the DataGrid via the [aiIntegration](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/#aiIntegration) option and the [aiAssistant.aiIntegration](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/aiAssistant/#aiIntegration) sub-option respectively.
+2. Two separate [AIIntegration](https://js.devexpress.com/Documentation/ApiReference/Common_Types/AIIntegration) instances are created with `new DevExpress.aiIntegration.AIIntegration({ sendRequest })` - one bound to the column endpoint, one to the assistant endpoint. They are passed to the DataGrid via the [aiIntegration](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/#aiIntegration) option and the [aiAssistant.aiIntegration](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/aiAssistant/#aiIntegration) sub-option respectively.
 
 ### Configure the DataGrid AI column
 
@@ -111,15 +111,10 @@ The [aiAssistant](https://js.devexpress.com/Documentation/ApiReference/UI_Compon
 
 ## Documentation
 
-- [DataGrid - AI-Powered Features Overview](https://js.devexpress.com/Documentation/Guide/UI_Components/DataGrid/AI-Powered_Features/)
-- [DataGrid - AI Column](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/columns/#type)
+- [DataGrid - AI-Powered Features Overview](https://js.devexpress.com/Documentation/Guide/AI_Features/Overview_of_AI-powered_Features/)
+- [DataGrid - AI Column](https://js.devexpress.com/Documentation/Guide/UI_Components/DataGrid/Columns/Column_Types/AI_Columns/)
 - [DataGrid - AI Assistant](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/aiAssistant/)
-- [AIIntegration Utility](https://js.devexpress.com/Documentation/ApiReference/Common/Utils/aiIntegration/)
-
-## More Examples
-
-- [DevExtreme Chat - AI Integration with Microsoft Agent Framework](https://github.com/DevExpress-Examples/devextreme-chat-ai-integration-ms-agent-framework)
-- [DevExtreme Chat - Integration with OpenAI](https://github.com/DevExpress-Examples/devextreme-chat-openai-integration)
+- [AIIntegration Utility](https://js.devexpress.com/Documentation/ApiReference/Common_Types/AIIntegration/)
 
 <!-- feedback -->
 ## Does This Example Address Your Development Requirements/Objectives?
