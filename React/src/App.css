@@ -9,6 +9,6 @@
     width: 100%;
 }
 
-#grid-container .ai__cell {
+#grid-container .ai-cell {
   background-color: var(--dx-datagrid-row-alternation-bg);
 }

@@ -108,7 +108,7 @@ function App(): JSX.Element {
           width={200}
           fixed
           fixedPosition="right"
-          cssClass="ai__cell"
+          cssClass="ai-cell"
         >
           <AI
             prompt="Identify the country where product is manufactured. When looking up a country, consider Sector and Customers."
