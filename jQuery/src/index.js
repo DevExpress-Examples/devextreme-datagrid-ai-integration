@@ -164,7 +164,7 @@ $(() => {
         width: 200,
         fixed: true,
         fixedPosition: 'right',
-        cssClass: 'ai__cell',
+        cssClass: 'ai-cell',
       },
     ],
   });
