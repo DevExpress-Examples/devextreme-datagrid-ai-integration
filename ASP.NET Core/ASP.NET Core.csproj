@@ -21,6 +21,7 @@
       <JSFiles Include="$(NodeModulesDir)jquery\dist\jquery.min.js" />
       <JSFiles Include="$(NodeModulesDir)bootstrap\dist\js\bootstrap.min.js" />
       <JSFiles Include="$(NodeModulesDir)devextreme-dist\js\dx.all.js" />
+      <JSFiles Include="$(NodeModulesDir)devextreme-dist\js\dx.ai-integration.js" />
       <JSFiles Include="$(NodeModulesDir)devextreme-dist\js\dx.aspnet.mvc.js" />
       <JSFiles Include="$(NodeModulesDir)devextreme-aspnet-data\js\dx.aspnet.data.js" />
     </ItemGroup>
@@ -29,7 +30,7 @@
     <ItemGroup>
       <CSSFiles Include="$(NodeModulesDir)bootstrap\dist\css\bootstrap.css" />
       <CSSFiles Include="$(NodeModulesDir)devextreme-dist\css\dx.common.css" />
-      <CSSFiles Include="$(NodeModulesDir)devextreme-dist\css\dx.material.blue.light.compact.css" />
+      <CSSFiles Include="$(NodeModulesDir)devextreme-dist\css\dx.fluent.blue.light.css" />
     </ItemGroup>
     <Copy SourceFiles="@(CSSFiles)" DestinationFolder="$(WwwRootDir)css\" SkipUnchangedFiles="true" />
 
@@ -45,7 +46,7 @@
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="DevExtreme.AspNet.Core" Version="26.1.2-beta" />
+    <PackageReference Include="DevExtreme.AspNet.Core" Version="26.1.3" />
   </ItemGroup>
 
 </Project>
