@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 5050",
     "prebuild": "devextreme-license --out src/devextreme-license.ts --force",
     "build": "tsc -b && vite build",
     "test": "vitest",
@@ -15,8 +15,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "devextreme": "26.1.2-beta",
-    "devextreme-react": "26.1.2-beta",
+    "devextreme": "26.1.3",
+    "devextreme-react": "26.1.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
