@@ -134,7 +134,7 @@ const chatOptions = {
         :width="200"
         :fixed="true"
         fixed-position="right"
-        css-class="ai__cell"
+        css-class="ai-cell"
       >
         <DxAI
           :prompt="`
@@ -161,7 +161,7 @@ const chatOptions = {
   width: 100%;
 }
 
-#grid-container .ai__cell {
+#grid-container .ai-cell {
   background-color: var(--dx-datagrid-row-alternation-bg);
 }
 </style>
