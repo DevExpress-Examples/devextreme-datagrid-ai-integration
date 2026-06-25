@@ -160,4 +160,8 @@ const chatOptions = {
   max-width: 1200px;
   width: 100%;
 }
+
+#grid-container .ai__cell {
+  background-color: var(--dx-datagrid-row-alternation-bg);
+}
 </style>
