@@ -4,8 +4,11 @@
 <div id="grid-container">
     @(Html.DevExtreme().DataGrid()
         .ID("salesGrid")
-        .DataSource(new JS("sales"))
-        .KeyExpr("Id")
+        .DataSource(d => d.WebApi()
+            .Controller("Sales")
+            .LoadAction("Get")
+            .Key("Id"))
+        .RemoteOperations(true)
         .AiIntegration(new JS("columnAiIntegration"))
         .ShowBorders(true)
         .FilterSyncEnabled(true)
