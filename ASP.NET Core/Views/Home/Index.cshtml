@@ -27,8 +27,16 @@
             .AiIntegration(new JS("assistantAiIntegration"))
             .Chat(c => c
                 .OnInitialized("onChatInitialized")
-                .Option("user", new JS("{ id: 'user' }"))
-                .Option("suggestions", new JS("gridChatSuggestions"))
+                .User(u => u.Id("user"))
+                .Suggestions(s => s
+                    .Items(items => {
+                        items.Add().Text("💡 Help").Option("prompt", new JS("HELP_PROMPT"));
+                        items.Add().Text("🔍 Filter Sector by Health").Option("prompt", "Filter Sector by Health");
+                        items.Add().Text("↕️ Sort by Region").Option("prompt", "Sort by Region");
+                        items.Add().Text("🧩 Group by Product").Option("prompt", "Group by Product").Option("width", 170);
+                    })
+                    .OnItemClick("onChatSuggestionItemClick")
+                )
             )
         )
         .Columns(columns => {
@@ -44,9 +52,9 @@
             columns.Add()
                 .Name("AI column")
                 .Caption("AI Column")
-                .Option("type", "ai")
+                .Type(GridCommandColumnType.Ai)
                 .AI(ai => ai
-                    .Prompt(new JS("AI_COLUMN_PROMPT"))
+                    .Prompt("Identify the country where product is manufactured. When looking up a country, consider Sector and Customers.")
                     .Mode(AIColumnMode.Auto)
                     .NoDataText("No data")
                 )

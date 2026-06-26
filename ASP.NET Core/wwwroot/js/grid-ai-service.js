@@ -1,5 +1,3 @@
-const AI_COLUMN_PROMPT = 'Identify the country where product is manufactured. When looking up a country, consider Sector and Customers.';
-
 const HELP_PROMPT = `💡 The DataGrid AI Assistant allows you to control the component using natural language. You can execute commands such as the following:
   • Sort records
   • Apply a filter
@@ -53,25 +51,17 @@ function onChatInitialized(e) {
     chatInstance = e.component;
 }
 
-const gridChatSuggestions = {
-    items: [
-        { text: '💡 Help', prompt: HELP_PROMPT },
-        { text: '🔍 Filter Sector by Health', prompt: 'Filter Sector by Health' },
-        { text: '↕️ Sort by Region', prompt: 'Sort by Region' },
-        { text: '🧩 Group by Product', prompt: 'Group by Product', width: 170 },
-    ],
-    onItemClick(e) {
-        const { prompt, text } = e.itemData;
-        const userId = text === '💡 Help' ? 'help' : 'user';
+function onChatSuggestionItemClick(e) {
+    const { prompt, text } = e.itemData;
+    const userId = text === '💡 Help' ? 'help' : 'user';
 
-        chatInstance.getDataSource().store().push([{
-            type: 'insert',
-            data: {
-                id: Date.now(),
-                timestamp: new Date(),
-                author: { id: userId },
-                text: prompt,
-            },
-        }]);
-    },
-};
+    chatInstance.getDataSource().store().push([{
+        type: 'insert',
+        data: {
+            id: Date.now(),
+            timestamp: new Date(),
+            author: { id: userId },
+            text: prompt,
+        },
+    }]);
+}
