@@ -1,7 +1,18 @@
 .demo-container {
-    margin: 50px;
-    width: 90vw;
+    display: flex;
+    justify-content: center;
+    margin: 20px;
 }
+
 body {
     margin: 8px;
+}
+
+#grid-container {
+    max-width: 1200px;
+    width: 100%;
+}
+
+#grid-container .ai-cell {
+    background-color: var(--dx-datagrid-row-alternation-bg);
 }

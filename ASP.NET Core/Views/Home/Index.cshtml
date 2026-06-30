@@ -1,29 +1,68 @@
-@using ASP_NET_Core.Models
+<script src="~/js/data.js" asp-append-version="true"></script>
+<script src="~/js/grid-ai-service.js" asp-append-version="true"></script>
 
-<h2>Home</h2>
-
-@(Html.DevExtreme().DataGrid<SampleOrder>()
-    .ShowBorders(true)
-    .DataSource(d => d.Mvc().Controller("SampleData").LoadAction("Get").Key("OrderID"))
-    .Columns(columns => {
-        columns.AddFor(m => m.OrderID);
-        columns.AddFor(m => m.OrderDate);
-        columns.AddFor(m => m.CustomerName);
-        columns.AddFor(m => m.ShipCountry);
-        columns.AddFor(m => m.ShipCity);
-    })
-    .Paging(p => p.PageSize(10))
-    .FilterRow(f => f.Visible(true))
-    .HeaderFilter(f => f.Visible(true))
-    .GroupPanel(p => p.Visible(true))
-    .Grouping(g => g.AutoExpandAll(false))
-    .RemoteOperations(true)
-    .Summary(s => s
-        .TotalItems(totalItems => {
-            totalItems.AddFor(m => m.ShipCity).SummaryType(SummaryType.Count);
-        })
-        .GroupItems(groupItems => {
-            groupItems.Add().SummaryType(SummaryType.Count);
+<div id="grid-container">
+    @(Html.DevExtreme().DataGrid()
+        .ID("salesGrid")
+        .DataSource(d => d.WebApi()
+            .Controller("Sales")
+            .LoadAction("Get")
+            .Key("Id"))
+        .RemoteOperations(true)
+        .AiIntegration(new JS("columnAiIntegration"))
+        .ShowBorders(true)
+        .FilterSyncEnabled(true)
+        .SearchPanel(s => s.Visible(true).Width(240).Placeholder("Search..."))
+        .GroupPanel(g => g.Visible(true))
+        .HeaderFilter(h => h.Visible(true))
+        .FilterRow(f => f.Visible(true))
+        .Paging(p => p.PageSize(10))
+        .Pager(p => p
+            .Visible(true)
+            .AllowedPageSizes(new[] { 10, 25, 50, 100 })
+            .ShowPageSizeSelector(true)
+        )
+        .AIAssistant(a => a
+            .Enabled(true)
+            .AiIntegration(new JS("assistantAiIntegration"))
+            .Chat(c => c
+                .OnInitialized("onChatInitialized")
+                .User(u => u.Id("user"))
+                .Suggestions(s => s
+                    .Items(items => {
+                        items.Add().Text("💡 Help").Option("prompt", new JS("HELP_PROMPT"));
+                        items.Add().Text("🔍 Filter Sector by Health").Option("prompt", "Filter Sector by Health");
+                        items.Add().Text("↕️ Sort by Region").Option("prompt", "Sort by Region");
+                        items.Add().Text("🧩 Group by Product").Option("prompt", "Group by Product").Option("width", 170);
+                    })
+                    .OnItemClick("onChatSuggestionItemClick")
+                )
+            )
+        )
+        .Columns(columns => {
+            columns.Add().DataField("Product");
+            columns.Add().DataField("Amount")
+                .Caption("Sale Amount")
+                .DataType(GridColumnDataType.Number)
+                .Format(Format.Currency);
+            columns.Add().DataField("Region").DataType(GridColumnDataType.String);
+            columns.Add().DataField("Sector").DataType(GridColumnDataType.String);
+            columns.Add().DataField("SaleDate").DataType(GridColumnDataType.Date);
+            columns.Add().DataField("Customer").DataType(GridColumnDataType.String);
+            columns.Add()
+                .Name("AI column")
+                .Caption("AI Column")
+                .Type(GridCommandColumnType.Ai)
+                .AI(ai => ai
+                    .Prompt("Identify the country where product is manufactured. When looking up a country, consider Sector and Customers.")
+                    .Mode(AIColumnMode.Auto)
+                    .NoDataText("No data")
+                )
+                .Width(200)
+                .Fixed(true)
+                .FixedPosition(FixedPosition.Right)
+                .CssClass("ai-cell");
         })
     )
-)
+</div>
+

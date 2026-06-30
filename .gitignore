@@ -306,5 +306,14 @@ TesterMetadata.xml
 
 */wwwroot/*
 
+# Re-enter the css/ and js/ directories (otherwise nested re-includes are ignored)
+!*/wwwroot/css/
+!*/wwwroot/js/
+*/wwwroot/css/*
+*/wwwroot/js/*
+
+# Keep hand-written assets (build-time copied dx.* and vendor files stay ignored)
 !*/wwwroot/css/Site.css
+!*/wwwroot/js/data.js
+!*/wwwroot/js/grid-ai-service.js
 *.DS_Store

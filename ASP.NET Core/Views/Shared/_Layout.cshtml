@@ -16,11 +16,12 @@
 
     <link rel="stylesheet" href="~/css/bootstrap.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/dx.common.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/dx.material.blue.light.compact.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/Site.css" />
+    <link rel="stylesheet" href="~/css/dx.fluent.blue.light.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Site.css" asp-append-version="true" />
     <script src="~/js/jquery.min.js" asp-append-version="true"></script>
     <script src="~/js/bootstrap.min.js" asp-append-version="true"></script>
     <script src="~/js/dx.all.js" asp-append-version="true"></script>
+    <script src="~/js/dx.ai-integration.js" asp-append-version="true"></script>
     <script src="~/js/dx.aspnet.mvc.js" asp-append-version="true"></script>
     <script src="~/js/dx.aspnet.data.js" asp-append-version="true"></script>
 </head>
@@ -29,6 +30,7 @@
     <div class="demo-container">
         @RenderBody()
     </div>
+    @RenderSection("Scripts", required: false)
 </body>
 
 </html>
