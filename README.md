@@ -4,92 +4,72 @@
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 [![](https://img.shields.io/badge/💬_Leave_Feedback-feecdd?style=flat-square)](#does-this-example-address-your-development-requirementsobjectives)
 <!-- default badges end -->
-# DevExtreme DataGrid - AI Integration
+# DevExtreme DataGrid - Azure OpenAI (.NET) Integration
 
-This example demonstrates how to enhance the [DevExtreme DataGrid](https://js.devexpress.com/Documentation/Guide/UI_Components/DataGrid/Overview/) with two AI-powered features: an [AI column](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/columns/ai/) that fills cells with values generated from row context, and the [AI Assistant](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/aiAssistant/) chat that lets end users control the grid (sort, filter, search, group, page, etc.) through natural-language requests.
+This example uses a minimal ASP.NET Web API backend to configure the following AI-powered [DevExtreme DataGrid](https://js.devexpress.com/Documentation/Guide/UI_Components/DataGrid/Overview/) features:
+
+- [AI columns](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/columns/ai/)
+- [AI Assistant](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/aiAssistant/)
 
 ![Example image](images/image-template.png)
 
 ## Implementation Details
 
-### Setup the AI Integration Server
+The [AIIntegrationServer](/AIIntegrationServer/) backend exposes separate endpoints for AI columns and the AI Assistant:
 
-This example includes a pre-configured ASP.NET Core Web API server (see [AIIntegrationServer](/AIIntegrationServer/)) that acts as a proxy between the client and [Azure OpenAI](https://azure.microsoft.com/en-us/pricing/details/azure-openai/). The server runs at `http://localhost:5005` and exposes the following endpoints:
-- `/api/ai/grid-column` (POST) - Used by the DataGrid AI column to generate cell values.
-- `/api/ai/assistant` (POST) - Used by the AI Assistant to translate chat messages into DataGrid commands. When the request body contains a `responseSchema`, the server forwards it to Azure OpenAI as a structured JSON response format.
+```js
+const _SERVER_URL = 'http://localhost:5005/api/ai';
 
-Credentials are read from [appsettings.json](AIIntegrationServer/appsettings.json) under the `AzureOpenAI` section (`Endpoint`, `ApiKey`, `ModelName`). The sample is preconfigured to use the public DevExpress demo endpoint; replace those values with your own Azure OpenAI deployment for production use. CORS is enabled for `http://localhost:5050` (the ASP.NET Core front-end) and the framework client dev servers.
+const AI_COLUMN_URL = `${_SERVER_URL}/grid-column`;
+const AI_ASSISTANT_URL = `${_SERVER_URL}/assistant`;
+```
 
-### Configure the AIIntegration object
+This example uses endpoint URLs in a factory function to configure two [AIIntegration](https://js.devexpress.com/Documentation/ApiReference/Common_Types/AIIntegration) instances:
 
-All framework projects share the same client-side pattern:
+```js
+function createSendRequest(url) {
+    return ({ prompt, data }) => {
+        const controller = new AbortController();
+        const signal = controller.signal;
 
-1. A `sendRequest` factory wraps `fetch` and posts `{ prompt, data }` to the chosen endpoint. The request is aborted via `AbortController` if the user cancels, and oversized prompts (≥ 5000 characters) are rejected before any network call.
+        const promise = fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt, data }),
+            signal,
+        })
+            .then(response => response.json())
+            .then(result => {
+                return result.content;
+            });
 
-2. Two separate [AIIntegration](https://js.devexpress.com/Documentation/ApiReference/Common_Types/AIIntegration) instances are created with `new DevExpress.aiIntegration.AIIntegration({ sendRequest })` - one bound to the column endpoint, one to the assistant endpoint. They are passed to the DataGrid via the [aiIntegration](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/#aiIntegration) option and the [aiAssistant.aiIntegration](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/aiAssistant/#aiIntegration) sub-option respectively.
+        return {
+            promise,
+            abort: () => controller.abort(),
+        };
+    };
+}
 
-### Configure the DataGrid AI column
+const columnAiIntegration = new DevExpress.aiIntegration.AIIntegration({
+    sendRequest: createSendRequest(AI_COLUMN_URL),
+});
 
-A column with `type: 'ai'` enables automatic cell value generation. The [ai](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/columns/ai/) sub-options describe how the model should fill values:
+const assistantAiIntegration = new DevExpress.aiIntegration.AIIntegration({
+    sendRequest: createSendRequest(AI_ASSISTANT_URL),
+});
+```
 
-- `prompt` - The natural-language instruction sent to the model with row data as context.
-- `mode` - `'auto'` runs the AI for every visible row automatically; `'manual'` waits for user action.
-- `noDataText` - Placeholder shown while values are being generated.
+## Run the Server
 
-### Configure the DataGrid AI Assistant
-
-The [aiAssistant](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/aiAssistant/) option turns on a chat panel that issues structured commands to the grid. The embedded [Chat](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxChat/) is configured with:
-
-- `user` - Identifies the end user in the chat data source.
-- `suggestions.items` - Quick-action chips (Help, Filter, Sort, Group). Each item carries a `prompt` payload.
-- `suggestions.onItemClick` - Pushes the suggestion's prompt into the chat data source as a new user (or `help`) message.
-- `onInitialized` - Stores the chat instance reference so suggestions can append messages directly to its data source.
-
-## Run the Example
-
-### Angular, React, Vue, and jQuery
-
-1. **Start the AI Integration Server**
-
-    ```bash
-    cd AIIntegrationServer
-    dotnet run
-    ```
-
-    The server starts on `http://localhost:5005`.
-
-2. **Run the Client Application**
-
-    - **Angular:** `cd Angular && npm install && npm start`
-    - **React:** `cd React && npm install && npm run dev`
-    - **Vue:** `cd Vue && npm install && npm run dev`
-    - **jQuery:** `cd jQuery && npm install && npm start`
-
-### ASP.NET Core
-
-1. **Start the AI Integration Server**
-
-    ```bash
-    cd AIIntegrationServer
-    dotnet run
-    ```
-
-2. **Run the ASP.NET Core front-end** in a separate terminal:
-
-    ```bash
-    cd "ASP.NET Core"
-    dotnet run
-    ```
-
-    The front-end starts on `http://localhost:5050`.
+To run the backend, follow the instructions in [AIIntegrationServer README](AIIntegrationServer/README.md).
 
 ## Files to Review
 
-- *AI Integration Server*
-    - [Program.cs](AIIntegrationServer/Program.cs) - App startup, Azure OpenAI client, CORS, and routing
-    - [AIIntegrationController.cs](AIIntegrationServer/Controllers/AIIntegrationController.cs) - `/api/ai/grid-column` and `/api/ai/assistant` endpoints
-    - [AIIntegrationRequest.cs](AIIntegrationServer/Models/AIIntegrationRequest.cs) - Request/response payload models
-    - [AzureOpenAIOptions.cs](AIIntegrationServer/Configuration/AzureOpenAIOptions.cs) - Azure OpenAI configuration binding
+- **AI Integration Server**
+    - [Program.cs](AIIntegrationServer/Program.cs)
+    - [AIIntegrationController.cs](AIIntegrationServer/Controllers/AIIntegrationController.cs)
+    - [AIIntegrationRequest.cs](AIIntegrationServer/Models/AIIntegrationRequest.cs)
+    - [AzureOpenAIOptions.cs](AIIntegrationServer/Configuration/AzureOpenAIOptions.cs)
 - **Angular**
     - [app.component.html](Angular/src/app/app.component.html)
     - [app.component.ts](Angular/src/app/app.component.ts)
@@ -115,6 +95,11 @@ The [aiAssistant](https://js.devexpress.com/Documentation/ApiReference/UI_Compon
 - [DataGrid - AI Column](https://js.devexpress.com/Documentation/Guide/UI_Components/DataGrid/Columns/Column_Types/AI_Columns/)
 - [DataGrid - AI Assistant](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/aiAssistant/)
 - [AIIntegration Utility](https://js.devexpress.com/Documentation/ApiReference/Common_Types/AIIntegration/)
+
+## More Examples
+
+- [DevExtreme DataGrid - AI Columns Demo](https://js.devexpress.com/Demos/WidgetsGallery/Demo/DataGrid/AIColumns/)
+- [DevExtreme DataGrid - AI Assistant Demo](https://js.devexpress.com/Demos/WidgetsGallery/Demo/DataGrid/AIAssistant/)
 
 <!-- feedback -->
 ## Does This Example Address Your Development Requirements/Objectives?

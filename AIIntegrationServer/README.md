@@ -1,16 +1,18 @@
 # AIIntegrationServer
 
-AIIntegrationServer is an API-only Web API that acts as a proxy between a DevExtreme DataGrid `AIIntegration` component and [Azure OpenAI](https://azure.microsoft.com/en-us/pricing/details/azure-openai/). It exposes endpoints for AI-powered grid column transformations and an assistant chat, forwarding prompts to Azure OpenAI and returning the model response.
+AIIntegrationServer is an API-only backend that connects [Azure OpenAI](https://azure.microsoft.com/en-us/pricing/details/azure-openai/) with AI-powered DevExtreme DataGrid features:
+
+- [AI columns](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/columns/ai/)
+- [AI Assistant](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/aiAssistant/)
 
 ## Features
 
-- **API-only architecture** - No Views or static files
-- **Azure OpenAI integration** - Uses `Azure.AI.OpenAI` alongside `Microsoft.Extensions.AI`
-- **Two endpoints** - Separate routes for grid column transformations and the AI assistant (with JSON schema response format)
+- **API-only architecture** - No Views or UI elements
+- **AI .NET Library Integration** - Uses `Azure.AI.OpenAI` and `Microsoft.Extensions.AI`
+- **Feature-specific endpoints** - Separate routes for AI columns and the AI assistant
 - **Stateless** - No session storage, each request is independent
 - **CORS enabled** - Allows cross-origin requests from client applications
-- **snake_case JSON** - Request/response payloads use `snake_case` property naming
-- **Port 5005** - Runs on HTTP port 5005 and HTTPS port 5006
+- **HTTP/HTTPS Support** - Runs on HTTP port 5005 and HTTPS port 5006
 
 ## Project Structure
 
@@ -35,11 +37,11 @@ AIIntegrationServer/
 
 ### POST /api/ai/grid-column
 
-Runs a chat completion for grid column transformations (temperature `0.7`).
+Runs chat completions for AI columns. Uses `0.7` temperature value.
 
 ### POST /api/ai/assistant
 
-Runs a chat completion for the AI assistant (temperature `0.0`). If the request `data` contains a `responseSchema` property, it is forwarded to Azure OpenAI as a JSON schema response format; otherwise the response is returned as plain JSON.
+Runs chat completions for the AI assistant. Uses `0.0` temperature value. Returns responses in JSON schemas (specified in a request's `responseSchema` parameter). If `responseSchema` is not specified in a request, returns a plain JSON response.
 
 **Request Body (application/json):**
 
