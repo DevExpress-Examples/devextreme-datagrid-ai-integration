@@ -1,6 +1,6 @@
 $(() => {
   function createSendRequest(url) {
-    return ({ prompt, data }, b) => {
+    return ({ prompt, data }) => {
       const isValidRequest = JSON.stringify(prompt.user || prompt).length < 5000;
       if (!isValidRequest) {
         return {
