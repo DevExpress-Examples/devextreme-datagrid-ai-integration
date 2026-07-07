@@ -9,10 +9,10 @@ AIIntegrationServer is an API-only backend that connects [Azure OpenAI](https://
 
 - **API-only architecture** - No Views or UI elements
 - **AI .NET Library Integration** - Uses `Azure.AI.OpenAI` and `Microsoft.Extensions.AI`
-- **Feature-specific endpoints** - Separate routes for AI columns and the AI assistant
+- **Feature-specific endpoints** - Separate routes for AI columns and AI assistant
 - **Stateless** - No session storage, each request is independent
 - **CORS enabled** - Allows cross-origin requests from client applications
-- **HTTP/HTTPS Support** - Runs on HTTP port 5005 and HTTPS port 5006
+- **HTTP/HTTPS Support** - Runs on 5005 HTTP port and 5006 HTTPS port
 
 ## Project Structure
 
@@ -41,7 +41,7 @@ Runs chat completions for AI columns. Uses `0.7` temperature value.
 
 ### POST /api/ai/assistant
 
-Runs chat completions for the AI assistant. Uses `0.0` temperature value. Returns responses in JSON schemas (specified in a request's `responseSchema` parameter). If `responseSchema` is not specified in a request, returns a plain JSON response.
+Runs chat completions for the AI assistant. Uses `0.0` temperature value. Returns responses in JSON schemas (specified in a request `responseSchema` parameter). If `responseSchema` is not specified, returns a empty? JSON response.
 
 **Request Body (application/json):**
 
@@ -65,9 +65,9 @@ Runs chat completions for the AI assistant. Uses `0.0` temperature value. Return
 }
 ```
 
-## Configuration
+## Configure an AI Service
 
-Update `appsettings.json` with your Azure OpenAI credentials:
+Add  your Azure OpenAI credentials to `appsettings.json`:
 
 ```json
 {

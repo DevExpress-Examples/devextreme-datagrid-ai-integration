@@ -6,7 +6,7 @@
 <!-- default badges end -->
 # DevExtreme DataGrid - Azure OpenAI (.NET) Integration
 
-This example uses a minimal ASP.NET Web API backend to configure the following AI-powered [DevExtreme DataGrid](https://js.devexpress.com/Documentation/Guide/UI_Components/DataGrid/Overview/) features:
+This example uses an ASP.NET Web API backend to configure the following AI-powered [DevExtreme DataGrid](https://js.devexpress.com/Documentation/Guide/UI_Components/DataGrid/Overview/) features:
 
 - [AI columns](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/columns/ai/)
 - [AI Assistant](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/aiAssistant/)
@@ -15,7 +15,7 @@ This example uses a minimal ASP.NET Web API backend to configure the following A
 
 ## Implementation Details
 
-The [AIIntegrationServer](/AIIntegrationServer/) backend exposes separate endpoints for AI columns and the AI Assistant:
+The [AIIntegrationServer](/AIIntegrationServer/) backend exposes separate endpoints for AI columns and AI Assistant:
 
 ```js
 const _SERVER_URL = 'http://localhost:5005/api/ai';
@@ -61,7 +61,7 @@ const assistantAiIntegration = new DevExpress.aiIntegration.AIIntegration({
 
 ## Run the Server
 
-To run the backend, follow the instructions in [AIIntegrationServer README](AIIntegrationServer/README.md).
+To run the backend, follow the instructions in the following README: [AIIntegrationServer](AIIntegrationServer/README.md).
 
 ## Files to Review
 
