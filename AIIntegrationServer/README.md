@@ -1,6 +1,6 @@
-# AIIntegrationServer
+# DevExtreme DataGrid - Azure OpenAI (.NET) Integration - AIIntegrationServer
 
-AIIntegrationServer is an API-only backend that connects [Azure OpenAI](https://azure.microsoft.com/en-us/pricing/details/azure-openai/) with AI-powered DevExtreme DataGrid features:
+AIIntegrationServer is this example's API-only backend that connects [Azure OpenAI](https://azure.microsoft.com/en-us/pricing/details/azure-openai/) with AI-powered DevExtreme DataGrid features:
 
 - [AI columns](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/columns/ai/)
 - [AI Assistant](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/aiAssistant/)
@@ -41,7 +41,7 @@ Runs chat completions for AI columns. Uses `0.7` temperature value.
 
 ### POST /api/ai/assistant
 
-Runs chat completions for the AI assistant. Uses `0.0` temperature value. Returns responses in JSON schemas (specified in a request `responseSchema` parameter). If `responseSchema` is not specified, returns a empty? JSON response.
+Runs chat completions for the AI assistant. Uses `0.0` temperature value. Returns responses in JSON schemas (specified in a request `responseSchema` parameter). If `responseSchema` is not specified, returns dynamic JSON responses.
 
 **Request Body (application/json):**
 
@@ -67,7 +67,7 @@ Runs chat completions for the AI assistant. Uses `0.0` temperature value. Return
 
 ## Configure an AI Service
 
-Add  your Azure OpenAI credentials to `appsettings.json`:
+Add your Azure OpenAI credentials to `appsettings.json`:
 
 ```json
 {
@@ -91,4 +91,4 @@ The server will start on:
 
 ## CORS Policy
 
-The server allows all HTTP methods and headers for requests from `http://localhost:5050`. This configuration is for development purposes only. For production, restrict allowed origins in [Program.cs](AIIntegrationServer/Program.cs) to specific domains.
+The server allows all HTTP methods and headers for requests from `http://localhost:5050`. This configuration is for development purposes only. For production, update allowed origins in [Program.cs](AIIntegrationServer/Program.cs) to your production domains.
