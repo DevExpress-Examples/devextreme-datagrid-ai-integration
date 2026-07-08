@@ -5,6 +5,8 @@ AIIntegrationServer is an API-only backend that connects [Azure OpenAI](https://
 - [AI columns](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/columns/ai/)
 - [AI Assistant](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/aiAssistant/)
 
+See the root [README](../README.md) for additional information.
+
 ## Features
 
 - **API-only architecture** - No Views or UI elements
