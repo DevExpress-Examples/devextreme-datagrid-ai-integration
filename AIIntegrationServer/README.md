@@ -1,6 +1,6 @@
-# DevExtreme DataGrid - Azure OpenAI (.NET) Integration - AIIntegrationServer
+# DevExtreme DataGrid – Azure OpenAI Integration (.NET AIIntegrationServer)
 
-AIIntegrationServer is this example's API-only backend that connects [Azure OpenAI](https://azure.microsoft.com/en-us/pricing/details/azure-openai/) with AI-powered DevExtreme DataGrid features:
+AIIntegrationServer is an API-only backend that connects [Azure OpenAI](https://azure.microsoft.com/en-us/pricing/details/azure-openai/) with AI-powered DevExtreme DataGrid features:
 
 - [AI columns](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/columns/ai/)
 - [AI Assistant](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/aiAssistant/)
