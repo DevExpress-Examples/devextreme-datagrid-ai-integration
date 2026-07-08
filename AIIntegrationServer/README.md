@@ -1,6 +1,6 @@
 # DevExtreme DataGrid – Azure OpenAI Integration (.NET AIIntegrationServer)
 
-AIIntegrationServer is an API-only backend that connects [Azure OpenAI](https://azure.microsoft.com/en-us/pricing/details/azure-openai/) with AI-powered DevExtreme DataGrid features:
+AIIntegrationServer is an API-only backend that connects [Azure OpenAI](https://azure.microsoft.com/en-us/pricing/details/azure-openai/) with the following AI-powered DevExtreme DataGrid features:
 
 - [AI columns](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/columns/ai/)
 - [AI Assistant](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/aiAssistant/)
@@ -39,11 +39,11 @@ AIIntegrationServer/
 
 ### POST /api/ai/grid-column
 
-Runs chat completions for AI columns. Uses `0.7` temperature value.
+Runs chat completions for AI columns. Uses a `0.7` temperature value.
 
 ### POST /api/ai/assistant
 
-Runs chat completions for the AI assistant. Uses `0.0` temperature value. Returns responses in JSON schemas (specified in a request `responseSchema` parameter). If `responseSchema` is not specified, returns dynamic JSON responses.
+Runs chat completions for the AI assistant. Uses a `0.0` temperature value. Returns responses in JSON schemas (specified in a request `responseSchema` parameter). If `responseSchema` is not specified, returns dynamic JSON responses.
 
 **Request Body (application/json):**
 

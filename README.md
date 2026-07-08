@@ -15,7 +15,7 @@ This example uses an ASP.NET Web API backend to configure the following AI-power
 
 ## Implementation Details
 
-The [AIIntegrationServer](/AIIntegrationServer/) backend exposes separate endpoints for AI columns and AI Assistant:
+The [AIIntegrationServer](/AIIntegrationServer/) backend exposes separate endpoints for AI columns and the AI Assistant:
 
 ```js
 const _SERVER_URL = 'http://localhost:5005/api/ai';
