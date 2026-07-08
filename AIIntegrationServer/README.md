@@ -1,16 +1,20 @@
-# AIIntegrationServer
+# DevExtreme DataGrid – Azure OpenAI Integration (.NET AIIntegrationServer)
 
-AIIntegrationServer is an API-only Web API that acts as a proxy between a DevExtreme DataGrid `AIIntegration` component and [Azure OpenAI](https://azure.microsoft.com/en-us/pricing/details/azure-openai/). It exposes endpoints for AI-powered grid column transformations and an assistant chat, forwarding prompts to Azure OpenAI and returning the model response.
+AIIntegrationServer is an API-only backend that connects [Azure OpenAI](https://azure.microsoft.com/en-us/pricing/details/azure-openai/) with the following AI-powered DevExtreme DataGrid features:
+
+- [AI columns](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/columns/ai/)
+- [AI Assistant](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/aiAssistant/)
+
+See the root [README](../README.md) for additional information.
 
 ## Features
 
-- **API-only architecture** - No Views or static files
-- **Azure OpenAI integration** - Uses `Azure.AI.OpenAI` alongside `Microsoft.Extensions.AI`
-- **Two endpoints** - Separate routes for grid column transformations and the AI assistant (with JSON schema response format)
+- **API-only architecture** - No Views or UI elements
+- **AI .NET Library Integration** - Uses `Azure.AI.OpenAI` and `Microsoft.Extensions.AI`
+- **Feature-specific endpoints** - Separate routes for AI columns and AI assistant
 - **Stateless** - No session storage, each request is independent
 - **CORS enabled** - Allows cross-origin requests from client applications
-- **snake_case JSON** - Request/response payloads use `snake_case` property naming
-- **Port 5005** - Runs on HTTP port 5005 and HTTPS port 5006
+- **HTTP/HTTPS Support** - Runs on 5005 HTTP port and 5006 HTTPS port
 
 ## Project Structure
 
@@ -35,11 +39,11 @@ AIIntegrationServer/
 
 ### POST /api/ai/grid-column
 
-Runs a chat completion for grid column transformations (temperature `0.7`).
+Runs chat completions for AI columns. Uses a `0.7` temperature value.
 
 ### POST /api/ai/assistant
 
-Runs a chat completion for the AI assistant (temperature `0.0`). If the request `data` contains a `responseSchema` property, it is forwarded to Azure OpenAI as a JSON schema response format; otherwise the response is returned as plain JSON.
+Runs chat completions for the AI assistant. Uses a `0.0` temperature value. Returns responses in JSON schemas (specified in a request `responseSchema` parameter). If `responseSchema` is not specified, returns dynamic JSON responses.
 
 **Request Body (application/json):**
 
@@ -63,9 +67,9 @@ Runs a chat completion for the AI assistant (temperature `0.0`). If the request 
 }
 ```
 
-## Configuration
+## Configure an AI Service
 
-Update `appsettings.json` with your Azure OpenAI credentials:
+Add your Azure OpenAI credentials to `appsettings.json`:
 
 ```json
 {
@@ -89,4 +93,4 @@ The server will start on:
 
 ## CORS Policy
 
-The server allows all HTTP methods and headers for requests from `http://localhost:5050`. This configuration is for development purposes only. For production, restrict allowed origins in [Program.cs](AIIntegrationServer/Program.cs) to specific domains.
+The server allows all HTTP methods and headers for requests from `http://localhost:5050`. This configuration is for development purposes only. For production, update allowed origins in [Program.cs](AIIntegrationServer/Program.cs) to your production domains.
