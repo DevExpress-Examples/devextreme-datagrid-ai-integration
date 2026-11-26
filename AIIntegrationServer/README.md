@@ -93,4 +93,4 @@ The server will start on:
 
 ## CORS Policy
 
-The server allows all HTTP methods and headers for requests from `http://localhost:5050`. This configuration is for development purposes only. For production, update allowed origins in [Program.cs](AIIntegrationServer/Program.cs) to your production domains.
+The server allows all HTTP methods and headers for requests from `http://localhost:5050`. This configuration is for development purposes only. For production, update allowed origins in [Program.cs](Program.cs) to your production domains.
